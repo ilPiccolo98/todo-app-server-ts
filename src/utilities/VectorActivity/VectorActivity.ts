@@ -1,4 +1,6 @@
-import Activity, { ActivityPlain } from "../Activity/Activity";
+import Activity, {
+  ActivityPlain,
+} from "../../models/classes/Activity/Activity";
 
 class VectorActivity {
   public constructor(private activities: Array<Activity> = []) {}
@@ -33,31 +35,37 @@ class VectorActivity {
     return new VectorActivity(copyToConvert);
   }
 
-  public addActivity = (activity: Activity): void => {
+  public addActivity = (activity: Activity): boolean => {
     this.activities.push(activity);
+    return true;
   };
 
-  public deleteActivity = (id: number): void => {
-    const positionActivityToDelete: number = this.getPositionActivity(id);
-    this.activities.splice(positionActivityToDelete, 1);
+  public deleteActivity = (id: number): boolean => {
+    if (this.doesActivityExist(id)) {
+      const positionActivityToDelete: number = this.getPositionActivity(id);
+      this.activities.splice(positionActivityToDelete, 1);
+      return true;
+    }
+    return false;
   };
 
-  public updateActivity = (
-    id: number,
-    name: string,
-    description: string,
-    status: boolean
-  ): void => {
-    const positionActivityToUpdate: number = this.getPositionActivity(id);
-    this.updateActivityItem(
-      positionActivityToUpdate,
-      name,
-      description,
-      status
-    );
+  public updateActivity = (activity: ActivityPlain): boolean => {
+    if (this.doesActivityExist(activity.id)) {
+      const positionActivityToUpdate: number = this.getPositionActivity(
+        activity.id
+      );
+      this.updateActivityItem(
+        positionActivityToUpdate,
+        activity.name,
+        activity.description,
+        activity.status
+      );
+      return true;
+    }
+    return false;
   };
 
-  public doesActivityExist = (id: number): boolean => {
+  private doesActivityExist = (id: number): boolean => {
     for (let i: number = 0; i !== this.activities.length; ++i) {
       if (this.activities[i].Id === id) {
         return true;
