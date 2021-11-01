@@ -8,5 +8,20 @@
     "@types/node": "^16.11.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.14"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junior998/todo-app-server-ts.git"
+  },
+  "author": "giuseppe <peppe.piccolo@protonmail.com>",
+  "bugs": {
+    "url": "https://github.com/junior998/todo-app-server-ts/issues"
+  },
+  "homepage": "https://github.com/junior998/todo-app-server-ts#readme",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./dist/program.js"
+  },
+  "description": ""
 }

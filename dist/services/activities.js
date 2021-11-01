@@ -30,8 +30,25 @@ var ActivitiesService = /** @class */ (function () {
         return JSON.stringify(this.activities.toPlainArrayWithPlainActivities());
     };
     ActivitiesService.prototype.readActivitiesFile = function () {
-        var fileContent = fs_1.default.readFileSync(this.path, "utf-8");
-        this.activities = VectorActivity_1.default.fromArrayPlainActivityToVectorActivity(JSON.parse(fileContent));
+        if (fs_1.default.existsSync(this.path)) {
+            var fileContent = fs_1.default.readFileSync(this.path, "utf-8");
+            this.initActivities(fileContent);
+        }
+        else {
+            fs_1.default.writeFile(this.path, "", function (error) {
+                if (error) {
+                    console.log(error);
+                }
+            });
+        }
+    };
+    ActivitiesService.prototype.initActivities = function (activities) {
+        if (activities.length) {
+            this.activities = VectorActivity_1.default.fromArrayPlainActivityToVectorActivity(JSON.parse(activities));
+        }
+        else {
+            this.activities = new VectorActivity_1.default();
+        }
     };
     return ActivitiesService;
 }());

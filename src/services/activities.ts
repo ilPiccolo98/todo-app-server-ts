@@ -33,10 +33,26 @@ class ActivitiesService {
   }
 
   private readActivitiesFile(): void {
-    const fileContent: string = fs.readFileSync(this.path, "utf-8");
-    this.activities = VectorActivity.fromArrayPlainActivityToVectorActivity(
-      JSON.parse(fileContent)
-    );
+    if (fs.existsSync(this.path)) {
+      const fileContent: string = fs.readFileSync(this.path, "utf-8");
+      this.initActivities(fileContent);
+    } else {
+      fs.writeFile(this.path, "", (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
+    }
+  }
+
+  private initActivities(activities: string): void {
+    if (activities.length) {
+      this.activities = VectorActivity.fromArrayPlainActivityToVectorActivity(
+        JSON.parse(activities)
+      );
+    } else {
+      this.activities = new VectorActivity();
+    }
   }
 
   private activities: VectorActivity;

@@ -23,7 +23,9 @@ var VectorActivity = /** @class */ (function () {
             return true;
         };
         this.deleteActivity = function (id) {
+            console.log("delete", _this.activities);
             if (_this.doesActivityExist(id)) {
+                console.log("it exists");
                 var positionActivityToDelete = _this.getPositionActivity(id);
                 _this.activities.splice(positionActivityToDelete, 1);
                 return true;
@@ -40,6 +42,7 @@ var VectorActivity = /** @class */ (function () {
         };
         this.doesActivityExist = function (id) {
             for (var i = 0; i !== _this.activities.length; ++i) {
+                console.log(_this.activities[i].Id === id);
                 if (_this.activities[i].Id === id) {
                     return true;
                 }
@@ -60,6 +63,10 @@ var VectorActivity = /** @class */ (function () {
             return index;
         };
     }
+    VectorActivity.prototype.stringify = function () {
+        var convertedArray = this.toPlainArrayWithPlainActivities();
+        return JSON.stringify(convertedArray);
+    };
     VectorActivity.prototype.size = function () {
         return this.activities.length;
     };

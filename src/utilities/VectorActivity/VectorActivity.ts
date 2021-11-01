@@ -5,6 +5,12 @@ import Activity, {
 class VectorActivity {
   public constructor(private activities: Array<Activity> = []) {}
 
+  public stringify(): string {
+    const convertedArray: ActivityPlain[] =
+      this.toPlainArrayWithPlainActivities();
+    return JSON.stringify(convertedArray);
+  }
+
   public size(): number {
     return this.activities.length;
   }
@@ -41,7 +47,9 @@ class VectorActivity {
   };
 
   public deleteActivity = (id: number): boolean => {
+    console.log("delete", this.activities);
     if (this.doesActivityExist(id)) {
+      console.log("it exists");
       const positionActivityToDelete: number = this.getPositionActivity(id);
       this.activities.splice(positionActivityToDelete, 1);
       return true;
@@ -67,6 +75,7 @@ class VectorActivity {
 
   private doesActivityExist = (id: number): boolean => {
     for (let i: number = 0; i !== this.activities.length; ++i) {
+      console.log(this.activities[i].Id === id);
       if (this.activities[i].Id === id) {
         return true;
       }
