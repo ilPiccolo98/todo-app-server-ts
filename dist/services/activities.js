@@ -11,6 +11,9 @@ var ActivitiesService = /** @class */ (function () {
         this.activities = new VectorActivity_1.default();
         this.readActivitiesFile();
     }
+    ActivitiesService.prototype.generateId = function () {
+        return this.activities.generateId();
+    };
     ActivitiesService.prototype.getActivities = function () {
         return this.activities.toPlainArrayWithPlainActivities();
     };

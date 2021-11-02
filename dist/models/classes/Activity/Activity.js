@@ -1,16 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Activity = /** @class */ (function () {
-    function Activity(name, description, status) {
+    function Activity(id, name, description, status) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
-        this.id = Activity.counterId;
-        ++Activity.counterId;
     }
-    Activity.resetIdGenerator = function () {
-        Activity.counterId = 1;
-    };
     Object.defineProperty(Activity.prototype, "Id", {
         get: function () {
             return this.id;
@@ -49,9 +45,7 @@ var Activity = /** @class */ (function () {
         configurable: true
     });
     Activity.prototype.clone = function () {
-        var copy = new Activity(this.name, this.description, this.status);
-        copy.id = this.id;
-        --Activity.counterId;
+        var copy = new Activity(this.id, this.name, this.description, this.status);
         return copy;
     };
     Activity.prototype.toActivityPlain = function () {
@@ -63,12 +57,9 @@ var Activity = /** @class */ (function () {
         };
     };
     Activity.fromActivityPlainToActivity = function (activity) {
-        var convertedActivity = new Activity(activity.name, activity.description, activity.status);
-        convertedActivity.id = activity.id;
-        --Activity.counterId;
+        var convertedActivity = new Activity(activity.id, activity.name, activity.description, activity.status);
         return convertedActivity;
     };
-    Activity.counterId = 1;
     return Activity;
 }());
 exports.default = Activity;

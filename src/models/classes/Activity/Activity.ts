@@ -9,17 +9,11 @@ export type ActivityPlain = {
 
 class Activity implements IClonable<Activity> {
   public constructor(
+    private id: number,
     private name: string,
     private description: string,
     private status: boolean
-  ) {
-    this.id = Activity.counterId;
-    ++Activity.counterId;
-  }
-
-  public static resetIdGenerator(): void {
-    Activity.counterId = 1;
-  }
+  ) {}
 
   public get Id() {
     return this.id;
@@ -50,9 +44,12 @@ class Activity implements IClonable<Activity> {
   }
 
   public clone(): Activity {
-    const copy = new Activity(this.name, this.description, this.status);
-    copy.id = this.id;
-    --Activity.counterId;
+    const copy = new Activity(
+      this.id,
+      this.name,
+      this.description,
+      this.status
+    );
     return copy;
   }
 
@@ -67,17 +64,13 @@ class Activity implements IClonable<Activity> {
 
   public static fromActivityPlainToActivity(activity: ActivityPlain): Activity {
     const convertedActivity = new Activity(
+      activity.id,
       activity.name,
       activity.description,
       activity.status
     );
-    convertedActivity.id = activity.id;
-    --Activity.counterId;
     return convertedActivity;
   }
-
-  private id: number;
-  private static counterId = 1;
 }
 
 export default Activity;

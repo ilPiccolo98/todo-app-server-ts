@@ -25,7 +25,7 @@ var retrieve = function (req, res) {
 exports.retrieve = retrieve;
 var addActivity = function (req, res) {
     var body = req.body;
-    var newActivity = new Activity_1.default(body.name, body.description, body.status);
+    var newActivity = new Activity_1.default(activitiesService.generateId(), body.name, body.description, body.status);
     if (activitiesService.addActivity(newActivity)) {
         activitiesService.saveActivitiesAsync(function (err) {
             if (err) {

@@ -30,7 +30,12 @@ export const retrieve: RequestHandler = (req, res) => {
 
 export const addActivity: RequestHandler = (req, res) => {
   const body: AddActivityBody = req.body as AddActivityBody;
-  const newActivity = new Activity(body.name, body.description, body.status);
+  const newActivity = new Activity(
+    activitiesService.generateId(),
+    body.name,
+    body.description,
+    body.status
+  );
   if (activitiesService.addActivity(newActivity)) {
     activitiesService.saveActivitiesAsync((err) => {
       if (err) {

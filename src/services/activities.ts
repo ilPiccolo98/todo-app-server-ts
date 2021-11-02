@@ -8,6 +8,10 @@ class ActivitiesService {
     this.readActivitiesFile();
   }
 
+  public generateId(): number {
+    return this.activities.generateId();
+  }
+
   public getActivities(): ActivityPlain[] {
     return this.activities.toPlainArrayWithPlainActivities();
   }
